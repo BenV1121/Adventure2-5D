@@ -11,7 +11,7 @@ public class Blade : MonoBehaviour
     private List<IDamageable> occupants = new List<IDamageable>();
     public GameObject hitsparks;
 
-    private Rigidbody2D rb2D;
+    private Rigidbody rb;
 
     public Text emiAmount;
     private int emiNumber;
@@ -40,9 +40,10 @@ public class Blade : MonoBehaviour
             target.TakeDamage(damageOnContact);
             occupants.Add(target);
 
-            rb2D = trigger.gameObject.GetComponent<Rigidbody2D>();
+            rb = trigger.gameObject.GetComponent<Rigidbody>();
 
-            rb2D.AddForce(transform.up);
+            rb.isKinematic = false;
+            rb.AddForce(transform.forward * 500);
 
             Destroy(Instantiate(hitsparks, gameObject.transform.position, gameObject.transform.rotation), 1);
         }

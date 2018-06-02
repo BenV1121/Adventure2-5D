@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool canMove = true;
     public bool canDash;
 
-    GameObject sword;
+    //GameObject sword;
     GameObject arrow;
 
     GameObject _3dSword;
@@ -43,9 +43,8 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        sword = GameObject.Find("sword");
         arrow = GameObject.Find("ArrowPivot");
-        _3dSword = GameObject.Find("Blade");
+        _3dSword = GameObject.Find("3DBlade");
         _3dPivot = GameObject.Find("3DPivot");
 
         health = maxHealth;
@@ -61,8 +60,8 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        sword.SetActive(false);
-        //_3dPivot.SetActive(false);
+        //sword.SetActive(false);
+        _3dSword.SetActive(false);
 
         velocity = speed * Time.deltaTime;
 
@@ -84,14 +83,12 @@ public class PlayerController : MonoBehaviour
 
             // Player Attacking
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Z) || Input.GetAxis("Fire1Stick") != 0)
-            { 
-                sword.SetActive(true);
-                _3dPivot.SetActive(true);
+            {
+                _3dSword.SetActive(true);
             }
             else
-            { 
-                sword.SetActive(false);
-                _3dPivot.SetActive(false);
+            {
+                _3dSword.SetActive(false);
             }
 
             //Player facing direction

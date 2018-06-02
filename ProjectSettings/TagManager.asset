@@ -8,6 +8,8 @@ TagManager:
   - Objects
   - HP
   - Attack
+  - Enemy
+  - NPC
   layers:
   - Default
   - TransparentFX
