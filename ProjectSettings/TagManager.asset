@@ -10,6 +10,7 @@ TagManager:
   - Attack
   - Enemy
   - NPC
+  - HiddenItem
   layers:
   - Default
   - TransparentFX

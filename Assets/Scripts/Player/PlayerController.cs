@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     GameObject _3dSword;
     GameObject _3dPivot;
+    public GameObject exclamationPoint;
 
     public float maxHealth = 10;
     public float health;
@@ -46,6 +47,10 @@ public class PlayerController : MonoBehaviour
         arrow = GameObject.Find("ArrowPivot");
         _3dSword = GameObject.Find("3DBlade");
         _3dPivot = GameObject.Find("3DPivot");
+
+        //exclamationPoint is Sprite's child
+        exclamationPoint = this.gameObject.transform.GetChild(0).GetChild(1).gameObject;
+        exclamationPoint.SetActive(false);
 
         health = maxHealth;
         hp = GameObject.FindGameObjectWithTag("HP").GetComponent<Image>();
