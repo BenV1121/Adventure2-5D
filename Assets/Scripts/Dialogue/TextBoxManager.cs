@@ -51,7 +51,6 @@ public class TextBoxManager : MonoBehaviour
             DisableTextBox();
             EnableObject();
         }
-
     }
 
     void Update()

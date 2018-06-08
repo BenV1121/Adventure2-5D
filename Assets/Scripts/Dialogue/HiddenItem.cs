@@ -51,6 +51,7 @@ public class HiddenItem : MonoBehaviour
 
             if (destroyWhenActivated)
             {
+                playerController.exclamationPoint.SetActive(false);
                 Destroy(gameObject);
             }
 
@@ -91,6 +92,7 @@ public class HiddenItem : MonoBehaviour
 
             if (destroyWhenActivated)
             {
+                playerController.exclamationPoint.SetActive(false);
                 Destroy(gameObject);
             }
 

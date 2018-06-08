@@ -12,14 +12,16 @@ public class TalkToNPC : MonoBehaviour
 
     public TextBoxManager theTextBox;
 
+    public MenuManager menuManager;
+
     public bool requireButtonPress;
     private bool waitForPress;
 
     public bool destroyWhenActivated;
     public bool disableWhenActivated;
 
-    public string[] theDialogues;
-    int theDialoguesIdx;
+    //public string[] theDialogues;
+    //int theDialoguesIdx;
 
     Transform speechBubble;
 
@@ -30,12 +32,14 @@ public class TalkToNPC : MonoBehaviour
         speechBubble = this.gameObject.transform.GetChild(1);
 
         speechBubble.gameObject.SetActive(false);
+
+        menuManager = FindObjectOfType<MenuManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (waitForPress && Input.GetKeyDown(KeyCode.Space))
+        if (waitForPress && Input.GetKeyDown(KeyCode.Space) && !menuManager.menuOn)
         {
             theTextBox.ReloadScript(theText);
             theTextBox.currentLine = startLine; //theDialoguesIdx
@@ -62,6 +66,7 @@ public class TalkToNPC : MonoBehaviour
                 }
             }
             theTextBox.stopPlayerMovement = true;
+
         }
     }
 
