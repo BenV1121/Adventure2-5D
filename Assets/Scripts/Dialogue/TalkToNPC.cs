@@ -39,7 +39,7 @@ public class TalkToNPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (waitForPress && Input.GetKeyDown(KeyCode.Space) && !menuManager.menuOn)
+        if (waitForPress && Input.GetKeyDown(KeyCode.Space) && !menuManager.menuOn && !theTextBox.isActive)
         {
             theTextBox.ReloadScript(theText);
             theTextBox.currentLine = startLine; //theDialoguesIdx

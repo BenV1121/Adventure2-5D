@@ -36,6 +36,15 @@ public class PlayerController : MonoBehaviour
     public Text healthAmountText;
     public Text maxHealthText;
 
+    public float maxCP = 10;
+    public float cosmicPower;
+
+    public Image cp;
+    public Text cpAmountText;
+    public Text maxCPText;
+
+    float cpRegenerateTimer = 1;
+
     public Text emiAmount;
     public int  emiNumber;
 
@@ -55,6 +64,10 @@ public class PlayerController : MonoBehaviour
         health = maxHealth;
         hp = GameObject.FindGameObjectWithTag("HP").GetComponent<Image>();
         SetHealthAmount();
+
+        cosmicPower = maxCP;
+        cp = GameObject.FindGameObjectWithTag("CP").GetComponent<Image>();
+        SetCosmicPowerAmount();
         
         emiNumber = 0;
         SetEmiAmount();
@@ -96,6 +109,35 @@ public class PlayerController : MonoBehaviour
                 _3dSword.SetActive(false);
             }
 
+            // Player consuming Cosmic Power
+
+            if(Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                cosmicPower -= 2;
+
+                SetCosmicPowerAmount();
+            }
+
+            if (cosmicPower <= 0)
+            {
+                cosmicPower = 0;
+                cpRegenerateTimer -= Time.deltaTime;
+
+                SetCosmicPowerAmount();
+            }
+
+            if (cosmicPower > 0)
+            {
+                cosmicPower += Time.deltaTime;
+                SetCosmicPowerAmount();
+            }
+
+            if(cpRegenerateTimer <= 0)
+            {
+                cpRegenerateTimer = 1;
+                cosmicPower += Time.deltaTime;
+            }
+
             //Player facing direction
             if (Input.GetAxisRaw("Vertical") > 0 && !isMove)
             { 
@@ -126,6 +168,7 @@ public class PlayerController : MonoBehaviour
         }
 
         hp.fillAmount = health / maxHealth;
+        cp.fillAmount = cosmicPower / maxCP;
 
         if(Input.GetKeyDown(KeyCode.F1))
         {
@@ -144,6 +187,15 @@ public class PlayerController : MonoBehaviour
 
         healthAmountText.text = health.ToString();
         maxHealthText.text = "/ " + maxHealth.ToString();
+    }
+
+    public void SetCosmicPowerAmount()
+    {
+        if (cosmicPower >= maxCP)
+            cosmicPower = maxCP;
+
+        cpAmountText.text = cosmicPower.ToString();
+        maxCPText.text = "/ " + maxCP.ToString();
     }
 
     public void SetEmiAmount()

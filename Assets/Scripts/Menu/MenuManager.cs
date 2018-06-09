@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
     public bool menuOn;
 
     public TextBoxManager textBoxManager;
+    public PlayerController playerController;
 
 	// Use this for initialization
 	void Start ()
@@ -18,6 +19,7 @@ public class MenuManager : MonoBehaviour
         menuOn = false;
 
         textBoxManager = TextBoxManager.FindObjectOfType<TextBoxManager>();
+        playerController = PlayerController.FindObjectOfType<PlayerController>();
     }
 	
 	// Update is called once per frame
@@ -30,11 +32,13 @@ public class MenuManager : MonoBehaviour
             if (menuOn)
             {
                 itemsMenu.SetActive(true);
+                playerController.canMove = false;
                 Time.timeScale = 0;
             }
             else
             {
                 itemsMenu.SetActive(false);
+                playerController.canMove = true;
                 Time.timeScale = 1;
             }
         }
