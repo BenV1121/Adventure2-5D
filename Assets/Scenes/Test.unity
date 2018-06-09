@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 159589767}
   - component: {fileID: 159589769}
   - component: {fileID: 159589768}
+  - component: {fileID: 159589770}
   m_Layer: 5
   m_Name: Equip
   m_TagString: Untagged
@@ -472,7 +473,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a11aff92dd2b54e4a95d081efcb66c9e, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -486,6 +487,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 159589766}
+--- !u!114 &159589770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159589766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf77b2d3117f11a42a517da5e5480110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipSprite: {fileID: 0}
+  leoOn: 0
+  zodiacWeapon: 000000000000000000000000
 --- !u!114 &192584301 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114840724453076110, guid: 239b68b27b029e74a816d378f47ea472,
@@ -686,6 +701,8 @@ MonoBehaviour:
   drops:
   - {fileID: 1776935403187346, guid: 9df68c167024ff04881ebd2641bd58df, type: 2}
   - {fileID: 1965070969360222, guid: 850a80e2fac889f4fb05f1f6abfbc88c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!208 &233321925
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1023,6 +1040,8 @@ MonoBehaviour:
   drops:
   - {fileID: 1776935403187346, guid: 9df68c167024ff04881ebd2641bd58df, type: 2}
   - {fileID: 1965070969360222, guid: 850a80e2fac889f4fb05f1f6abfbc88c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!135 &556262202
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1881,7 +1900,7 @@ RectTransform:
   - {fileID: 503532148}
   - {fileID: 1325467967}
   m_Father: {fileID: 1016100901}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2462,6 +2481,8 @@ MonoBehaviour:
   drops:
   - {fileID: 1776935403187346, guid: 9df68c167024ff04881ebd2641bd58df, type: 2}
   - {fileID: 1965070969360222, guid: 850a80e2fac889f4fb05f1f6abfbc88c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!135 &1273521896
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2951,7 +2972,7 @@ RectTransform:
   - {fileID: 438421037}
   - {fileID: 159589767}
   m_Father: {fileID: 1016100901}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3564,7 +3585,7 @@ RectTransform:
   m_Children:
   - {fileID: 1065298283}
   m_Father: {fileID: 1016100901}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3935,6 +3956,8 @@ MonoBehaviour:
   drops:
   - {fileID: 1776935403187346, guid: 9df68c167024ff04881ebd2641bd58df, type: 2}
   - {fileID: 1965070969360222, guid: 850a80e2fac889f4fb05f1f6abfbc88c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!135 &2129165241
 SphereCollider:
   m_ObjectHideFlags: 0

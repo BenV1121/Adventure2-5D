@@ -10,6 +10,7 @@ public class RandomDrop : MonoBehaviour
     void OnTriggerEnter(Collider trigger)
     {
         spawnIdx = Random.Range(0, drops.Count);
-        Instantiate(drops[spawnIdx], gameObject.transform.position, gameObject.transform.rotation);
+        if (drops[spawnIdx] != null)
+            Instantiate(drops[spawnIdx], gameObject.transform.position, gameObject.transform.rotation);
     }
 }

@@ -22,18 +22,12 @@ public class HiddenItem : MonoBehaviour
     public string[] theDialogues;
     int theDialoguesIdx;
 
-    Transform speechBubble;
-
     // Use this for initialization
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
 
         theTextBox = FindObjectOfType<TextBoxManager>();
-
-        speechBubble = gameObject.transform.GetChild(1);
-
-        speechBubble.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
