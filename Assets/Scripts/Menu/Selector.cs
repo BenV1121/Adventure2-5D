@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEditor;
+
 
 public class Selector : MonoBehaviour
 {
-    RectTransform rTransform;
     EquipLoaded eload;
+
+    public Transform[] equipLayout;
+    public Image[] equipLayoutSprite;
 
     int[][] equipmentGrid;
     int row = 0;
@@ -19,12 +24,22 @@ public class Selector : MonoBehaviour
     private bool m_xAxisInUse = false;
     private bool m_yAxisInUse = false;
 
+    public enum zEquips { nothing, leo, cancer, pisces, scorpius, aquarius, virgo, taurus, gemini, libra, capricorn, aries, sagittarius }
+    public zEquips equiped;
+
+    public bool[] equipsGet;
+
+    EquipGet equipGet;
 
     // Use this for initialization
     void Start()
     {
-        rTransform = GetComponent<RectTransform>();
+        equiped = zEquips.nothing;
+
         eload = FindObjectOfType<EquipLoaded>();
+        equipGet = FindObjectOfType<EquipGet>();
+
+        transform.position = equipLayout[0].position;
     }
 
     // Update is called once per frame
@@ -86,32 +101,65 @@ public class Selector : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == 0)
             m_xAxisInUse = false;
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(equipGet.equipGot[5])
         {
-            if      (row == 0 && col == 0)
-                eload.zodiacWeapon[0] =  true;
-            else if (row == 1 && col == 0)
-                eload.zodiacWeapon[1] =  true;
-            else if (row == 2 && col == 0)
-                eload.zodiacWeapon[2] =  true;
-            else if (row == 3 && col == 0)
-                eload.zodiacWeapon[3] =  true;
-            else if (row == 0 && col == 1)
-                eload.zodiacWeapon[4] =  true;
-            else if (row == 1 && col == 1)
-                eload.zodiacWeapon[5] =  true;
-            else if (row == 2 && col == 1)
-                eload.zodiacWeapon[6] =  true;
-            else if (row == 3 && col == 1)
-                eload.zodiacWeapon[7] =  true;
-            else if (row == 0 && col == 2)
-                eload.zodiacWeapon[8] =  true;
-            else if (row == 1 && col == 2)
-                eload.zodiacWeapon[9] =  true;
-            else if (row == 2 && col == 2)
-                eload.zodiacWeapon[10] = true;
-            else if (row == 3 && col == 2)
-                eload.zodiacWeapon[11] = true;
+            equipLayoutSprite[5] = (Image)AssetDatabase.LoadAssetAtPath("Assets/Sprite/LeoClaws.png", typeof(Image));
         }
+
+        if      (row == 0 && col == 0)
+            transform.position = equipLayout[0].position;
+        else if (row == 1 && col == 0)
+            transform.position = equipLayout[1].position;
+        else if (row == 2 && col == 0)
+            transform.position = equipLayout[2].position;
+        else if (row == 3 && col == 0)
+            transform.position = equipLayout[3].position;
+        else if (row == 0 && col == 1)
+            transform.position = equipLayout[4].position;
+        else if (row == 1 && col == 1)
+            transform.position = equipLayout[5].position;
+        else if (row == 2 && col == 1)
+            transform.position = equipLayout[6].position;
+        else if (row == 3 && col == 1)
+            transform.position = equipLayout[7].position;
+        else if (row == 0 && col == 2)
+            transform.position = equipLayout[8].position;
+        else if (row == 1 && col == 2)
+            transform.position = equipLayout[9].position;
+        else if (row == 2 && col == 2)
+            transform.position = equipLayout[10].position;
+        else if (row == 3 && col == 2)
+            transform.position = equipLayout[11].position;
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if      (row == 0 && col == 0 && equipGet.equipGot[0]  == true)
+                equiped = zEquips.leo;
+            else if (row == 1 && col == 0 && equipGet.equipGot[1]  == true)
+                equiped = zEquips.cancer;
+            else if (row == 2 && col == 0 && equipGet.equipGot[2]  == true)
+                equiped = zEquips.pisces;
+            else if (row == 3 && col == 0 && equipGet.equipGot[3]  == true)
+                equiped = zEquips.scorpius;
+            else if (row == 0 && col == 1 && equipGet.equipGot[4]  == true)
+                equiped = zEquips.aquarius;
+            else if (row == 1 && col == 1 && equipGet.equipGot[5]  == true)
+                equiped = zEquips.virgo;
+            else if (row == 2 && col == 1 && equipGet.equipGot[6]  == true)
+                equiped = zEquips.taurus;
+            else if (row == 3 && col == 1 && equipGet.equipGot[7]  == true)
+                equiped = zEquips.gemini;
+            else if (row == 0 && col == 2 && equipGet.equipGot[8]  == true)
+                equiped = zEquips.libra;
+            else if (row == 1 && col == 2 && equipGet.equipGot[9]  == true)
+                equiped = zEquips.capricorn;
+            else if (row == 2 && col == 2 && equipGet.equipGot[10] == true)
+                equiped = zEquips.aries;
+            else if (row == 3 && col == 2 && equipGet.equipGot[11] == true)
+                equiped = zEquips.capricorn;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+            equiped = zEquips.nothing;
     }
 }

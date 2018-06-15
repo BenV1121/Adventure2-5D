@@ -20,6 +20,8 @@ public class TalkToNPC : MonoBehaviour
     public bool destroyWhenActivated;
     public bool disableWhenActivated;
 
+    public bool isMerchant;
+
     //public string[] theDialogues;
     //int theDialoguesIdx;
 
@@ -39,12 +41,20 @@ public class TalkToNPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (waitForPress && Input.GetKeyDown(KeyCode.Space) && !menuManager.menuOn && !theTextBox.isActive)
+        if (waitForPress && Input.GetKeyDown(KeyCode.Space) && !menuManager.menuOn && !theTextBox.isActive && !menuManager.shopMenuOn)
         {
             theTextBox.ReloadScript(theText);
             theTextBox.currentLine = startLine; //theDialoguesIdx
             theTextBox.endAtLine = endLine; // theDialoguesIdx.length
             theTextBox.EnableTextBox();
+
+            if(isMerchant)
+            { 
+                theTextBox.npc = GetComponent<TalkToNPC>();
+                menuManager.shopMenu.SetActive(true);
+                menuManager.shopMenuOn = true;
+                menuManager.shopSelector = FindObjectOfType<ShopSelector>();
+            }
 
             if (destroyWhenActivated)
             {

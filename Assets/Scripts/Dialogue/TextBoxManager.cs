@@ -27,6 +27,8 @@ public class TextBoxManager : MonoBehaviour
 
     public float typeSpeed;
 
+    public TalkToNPC npc;
+
     // Use this for initialization
     void Start()
     {
@@ -64,6 +66,7 @@ public class TextBoxManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+
             if (!isTyping)
             {
                 currentLine += 1;
@@ -128,6 +131,8 @@ public class TextBoxManager : MonoBehaviour
         player.canMove = true;
 
         Time.timeScale = 1;
+
+        npc = null;
     }
 
     public void EnableObject()

@@ -7,8 +7,13 @@ public class MenuManager : MonoBehaviour
     public GameObject itemsMenu;
     public bool menuOn;
 
+    public GameObject shopMenu;
+    public bool shopMenuOn;
+
     public TextBoxManager textBoxManager;
     public PlayerController playerController;
+
+    public ShopSelector shopSelector;
 
 	// Use this for initialization
 	void Start ()
@@ -16,7 +21,8 @@ public class MenuManager : MonoBehaviour
         itemsMenu = GameObject.Find("ItemsMenu");
         itemsMenu.SetActive(false);
 
-        menuOn = false;
+        shopMenu = GameObject.Find("ShopUI");
+        shopMenu.SetActive(false);
 
         textBoxManager = TextBoxManager.FindObjectOfType<TextBoxManager>();
         playerController = PlayerController.FindObjectOfType<PlayerController>();
@@ -41,6 +47,19 @@ public class MenuManager : MonoBehaviour
                 playerController.canMove = true;
                 Time.timeScale = 1;
             }
+        }
+
+        if(shopMenuOn)
+        {
+            shopSelector.menuManager = GetComponent<MenuManager>();
+            playerController.canMove = false;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            shopMenu.SetActive(false);
+            playerController.canMove = true;
+            Time.timeScale = 1;
         }
     }
 }

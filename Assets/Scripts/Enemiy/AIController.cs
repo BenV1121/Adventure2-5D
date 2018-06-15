@@ -7,7 +7,6 @@ public class AIController : MonoBehaviour, IDamageable
 {
     public float health = 3;
 
-
     public Transform player;
     Vector3 destination;
 
@@ -17,6 +16,10 @@ public class AIController : MonoBehaviour, IDamageable
 
     float kinematicTimer = .1f;
     float kTimeReset = .1f;
+
+    float AttackTimer;
+
+    Transform attackBox;
 
     public void TakeDamage(float damageDealt)
     {
@@ -32,6 +35,9 @@ public class AIController : MonoBehaviour, IDamageable
         agent = GetComponent<NavMeshAgent>();
         destination = agent.destination;
         rb = GetComponent<Rigidbody>();
+        attackBox = gameObject.transform.GetChild(1);
+
+        attackBox.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -57,5 +63,14 @@ public class AIController : MonoBehaviour, IDamageable
     {
         rb.isKinematic = true;
         kinematicTimer = kTimeReset;
+    }
+
+    void OnTriggerEnter(Collider trigger)
+    {
+        if (trigger.tag == "Player")
+        {
+            attackBox.gameObject.SetActive(true);
+
+        }
     }
 }

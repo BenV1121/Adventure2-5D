@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using UnityEngine.AI;
 
 interface IDamageable
 {
     void TakeDamage(float damageDealt);
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     float speed = 5;
     float velocity;
@@ -28,6 +29,8 @@ public class PlayerController : MonoBehaviour
     GameObject _3dSword;
     GameObject _3dPivot;
     public GameObject exclamationPoint;
+
+    Rigidbody rb;
 
     public float maxHealth = 10;
     public float health;
@@ -48,7 +51,16 @@ public class PlayerController : MonoBehaviour
     public Text emiAmount;
     public int  emiNumber;
 
+    public NavMeshAgent nMA;
+
     Emi emi;
+
+    EquipLoaded eQ;
+
+    public bool isClimbing;
+
+    float kinematicTimer = .1f;
+    float kTimeReset = .1f;
 
     // Use this for initialization
     void Start()
@@ -56,6 +68,8 @@ public class PlayerController : MonoBehaviour
         arrow = GameObject.Find("ArrowPivot");
         _3dSword = GameObject.Find("3DBlade");
         _3dPivot = GameObject.Find("3DPivot");
+
+        rb = GetComponent<Rigidbody>();
 
         //exclamationPoint is Sprite's child
         exclamationPoint = this.gameObject.transform.GetChild(0).GetChild(1).gameObject;
@@ -73,6 +87,10 @@ public class PlayerController : MonoBehaviour
         SetEmiAmount();
 
         emi = (Emi)AssetDatabase.LoadAssetAtPath("Assets/Prefab/Drops/1Emi.prefab", typeof(Emi));
+
+        eQ = FindObjectOfType<EquipLoaded>();
+
+        nMA = GetComponent<NavMeshAgent>();
     }
 	
 	// Update is called once per frame
@@ -94,10 +112,17 @@ public class PlayerController : MonoBehaviour
             else
                 isSprint = false;
 
-            if(isSprint == true)
-                transform.Translate(new Vector3(move.x * 1.5f, 0, move.z * 1.5f));
-            else
-                transform.Translate(new Vector3(move.x, 0, move.z));
+            if(!isClimbing)
+            { 
+                if(isSprint == true)
+                    transform.Translate(new Vector3(move.x * 1.5f, 0, move.z * 1.5f));
+                else
+                    transform.Translate(new Vector3(move.x, 0, move.z));
+            }
+            else if (isClimbing)
+            {
+                transform.Translate(new Vector3(move.x * .5f, move.z * .5f, 0));
+            }
 
             // Player Attacking
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Z) || Input.GetAxis("Fire1Stick") != 0)
@@ -178,8 +203,44 @@ public class PlayerController : MonoBehaviour
             if (health <= 0)
                 Death();
         }
+
+        if(rb.isKinematic == false)
+        {
+            kinematicTimer -= Time.deltaTime;
+        }
+        if (kinematicTimer <= 0)
+            ResetKTimer();
     }
 
+    void OnTriggerStay(Collider trigger)
+    {
+        if (trigger.tag == "ClimbableWall" && eQ.canClimb == true)
+        {
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
+                isClimbing = true;
+                nMA.enabled = false;
+                rb.useGravity = false;
+                rb.isKinematic = false;
+            }
+            else
+            { 
+                isClimbing = false;
+                //nMA.enabled = true;
+                rb.useGravity = true;
+            }
+        }
+    }
+    void OnTriggerExit(Collider trigger)
+    {
+        if(trigger.tag == "ClimbableWall")
+        {
+            isClimbing = false;
+            nMA.enabled = true;
+            rb.useGravity = true;
+            rb.isKinematic = true;
+        }
+    }
     public void SetHealthAmount()
     {
         if (health >= maxHealth)
@@ -207,10 +268,21 @@ public class PlayerController : MonoBehaviour
     {
         health -= damageDealt;
         SetHealthAmount();
+
+        if(health <= 0)
+        {
+            Death();
+        }
+    }
+
+    void ResetKTimer()
+    {
+        rb.isKinematic = true;
+        kinematicTimer = kTimeReset;
     }
 
     public void Death()
     {
-        Debug.Log("Die");
+        Time.timeScale = 0;
     }
 }

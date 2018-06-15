@@ -12,6 +12,7 @@ TagManager:
   - NPC
   - HiddenItem
   - CP
+  - ClimbableWall
   layers:
   - Default
   - TransparentFX
