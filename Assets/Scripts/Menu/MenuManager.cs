@@ -49,17 +49,17 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if(shopMenuOn)
+        if (shopMenuOn)
         {
             shopSelector.menuManager = GetComponent<MenuManager>();
             playerController.canMove = false;
             Time.timeScale = 0;
         }
-        else
-        {
-            shopMenu.SetActive(false);
-            playerController.canMove = true;
-            Time.timeScale = 1;
-        }
+        //else
+        //{
+        //    shopMenu.SetActive(false);
+        //    playerController.canMove = true;
+        //    Time.timeScale = 1;
+        //}
     }
 }

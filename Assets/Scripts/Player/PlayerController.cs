@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     Emi emi;
 
     EquipLoaded eQ;
+    Selector selector;
+    MenuManager mM;
 
     public bool isClimbing;
 
@@ -91,6 +93,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         eQ = FindObjectOfType<EquipLoaded>();
 
         nMA = GetComponent<NavMeshAgent>();
+
+        mM = FindObjectOfType<MenuManager>();
     }
 	
 	// Update is called once per frame
@@ -138,12 +142,22 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             if(Input.GetKeyDown(KeyCode.Mouse1))
             {
-                cosmicPower -= 2;
+                //cosmicPower -= 2;
 
-                SetCosmicPowerAmount();
+                //SetCosmicPowerAmount();
             }
 
-            if (cosmicPower <= 0)
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
+                if (selector.equiped == Selector.zEquips.virgo)
+                {
+                    cosmicPower -= 4 * Time.deltaTime;
+
+                    SetCosmicPowerAmount();
+                }
+            }
+
+                if (cosmicPower <= 0)
             {
                 cosmicPower = 0;
                 cpRegenerateTimer -= Time.deltaTime;
@@ -210,6 +224,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
         if (kinematicTimer <= 0)
             ResetKTimer();
+
+        if(mM.menuOn)
+        {
+            selector = FindObjectOfType<Selector>();
+        }
     }
 
     void OnTriggerStay(Collider trigger)

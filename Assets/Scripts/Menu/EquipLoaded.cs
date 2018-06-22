@@ -66,7 +66,7 @@ public class EquipLoaded : MonoBehaviour
         }
         else if (selector.equiped == Selector.zEquips.virgo)
         {
-            equipSprite = null;
+            equipSprite = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Sprite/VirgoRaiment.png", typeof(Sprite));
             canClimb = false;
         }
         else if (selector.equiped == Selector.zEquips.taurus)

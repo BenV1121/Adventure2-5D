@@ -8,6 +8,7 @@ using UnityEditor;
 public class Selector : MonoBehaviour
 {
     EquipLoaded eload;
+    EquipGet equipGet;
 
     public Transform[] equipLayout;
     public Image[] equipLayoutSprite;
@@ -28,8 +29,6 @@ public class Selector : MonoBehaviour
     public zEquips equiped;
 
     public bool[] equipsGet;
-
-    EquipGet equipGet;
 
     // Use this for initialization
     void Start()
@@ -101,9 +100,9 @@ public class Selector : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == 0)
             m_xAxisInUse = false;
 
-        if(equipGet.equipGot[5])
+        if(equipGet.equipGot[5] == true)
         {
-            equipLayoutSprite[5] = (Image)AssetDatabase.LoadAssetAtPath("Assets/Sprite/LeoClaws.png", typeof(Image));
+            equipLayoutSprite[5].sprite = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Sprite/VirgoRaiment.png", typeof(Sprite));
         }
 
         if      (row == 0 && col == 0)

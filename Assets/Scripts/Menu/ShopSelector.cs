@@ -23,18 +23,22 @@ public class ShopSelector : MonoBehaviour
 
     EquipGet equipGet;
 
+    TextBoxManager textBoxManager;
+
     // Use this for initialization
     void Start ()
     {
         transform.position = item[0].position;
         playerController = FindObjectOfType<PlayerController>();
         equipGet = FindObjectOfType<EquipGet>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        menuManager = FindObjectOfType<MenuManager>();
+        textBoxManager = FindObjectOfType<TextBoxManager>();
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
-        if (Input.GetAxisRaw("Vertical") > 0) // W
+        if (Input.GetAxisRaw("Vertical") > 0 && textBoxManager.isActive == false) // W
         {
             if (m_yAxisInUse == false)
             {
@@ -46,7 +50,7 @@ public class ShopSelector : MonoBehaviour
                 m_yAxisInUse = true;
             }
         }
-        else if (Input.GetAxisRaw("Horizontal") < 0) // A
+        else if (Input.GetAxisRaw("Horizontal") < 0 && textBoxManager.isActive == false) // A
         {
             if (m_xAxisInUse == false)
             {
@@ -58,7 +62,7 @@ public class ShopSelector : MonoBehaviour
                 m_xAxisInUse = true;
             }
         }
-        else if (Input.GetAxisRaw("Vertical") < 0) // S
+        else if (Input.GetAxisRaw("Vertical") < 0 && textBoxManager.isActive == false) // S
         {
             if (m_yAxisInUse == false)
             {
@@ -70,7 +74,7 @@ public class ShopSelector : MonoBehaviour
                 m_yAxisInUse = true;
             }
         }
-        else if (Input.GetAxisRaw("Horizontal") > 0) // D
+        else if (Input.GetAxisRaw("Horizontal") > 0 && textBoxManager.isActive == false) // D
         {
             if (m_xAxisInUse == false)
             {
@@ -99,12 +103,17 @@ public class ShopSelector : MonoBehaviour
         else if (row >= 0 && col == 1)
             transform.position = item[4].position;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && textBoxManager.isActive == false)
         {
             if (row >= 0 && col == 1)
             {
-                transform.position = item[0].position;
                 menuManager.shopMenuOn = false;
+                menuManager.shopMenu.SetActive(false);
+                menuManager.playerController.canMove = true;
+
+                row = 0;
+                col = 0;
+                Time.timeScale = 1;
             }
 
             if (row == 0 && col == 0)
