@@ -14,6 +14,8 @@ public class ShopSelector : MonoBehaviour
     int minRow = 0;
     int minCol = 0;
 
+    public int click = 2;
+
     private bool m_xAxisInUse = false;
     private bool m_yAxisInUse = false;
 
@@ -105,37 +107,45 @@ public class ShopSelector : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && textBoxManager.isActive == false)
         {
-            if (row >= 0 && col == 1)
-            {
-                menuManager.shopMenuOn = false;
-                menuManager.shopMenu.SetActive(false);
-                menuManager.playerController.canMove = true;
+            click -= 1;
 
-                row = 0;
-                col = 0;
-                Time.timeScale = 1;
-            }
-
-            if (row == 0 && col == 0)
+            if(click <= 0)
             {
-                if(playerController.emiNumber >= 1)
+                if (row >= 0 && col == 1)
                 {
-                    playerController.emiNumber -= 1;
-                    playerController.health += 10;
-                    playerController.SetEmiAmount();
-                    playerController.SetHealthAmount();
+                    menuManager.shopMenuOn = false;
+                    menuManager.shopMenu.SetActive(false);
+                    menuManager.playerController.canMove = true;
+
+                    row = 0;
+                    col = 0;
+                    Time.timeScale = 1;
+
+                    click = 2;
+                }
+
+                if (row == 0 && col == 0)
+                {
+                    if (playerController.emiNumber >= 1)
+                    {
+                        playerController.emiNumber -= 1;
+                        playerController.health += 10;
+                        playerController.SetEmiAmount();
+                        playerController.SetHealthAmount();
+                    }
+                }
+                if (row == 3 && col == 0)
+                {
+                    if (playerController.emiNumber >= 50)
+                    {
+                        playerController.emiNumber -= 50;
+                        item[3].gameObject.SetActive(false);
+                        playerController.SetEmiAmount();
+                        equipGet.equipGot[5] = true;
+                    }
                 }
             }
-            if (row == 3 && col == 0)
-            {
-                if(playerController.emiNumber >= 50)
-                {
-                    playerController.emiNumber -= 50;
-                    item[3].gameObject.SetActive(false);
-                    playerController.SetEmiAmount();
-                    equipGet.equipGot[5] = true;
-                }
-            }
+           
         }
     }
 }
